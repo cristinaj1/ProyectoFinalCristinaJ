@@ -10,7 +10,7 @@ import java.util.List;
  * 
  */
 @Entity
-@Table(name="trabajadores")
+@Table(name = "trabajadores")
 @NamedQuery(name = "Trabajadores.findAll", query = "SELECT t FROM Trabajadores t")
 public class Trabajadores implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -180,7 +180,7 @@ public class Trabajadores implements Serializable {
 		return "Trabajadores [codtrabajador=" + codtrabajador + ", ape1=" + ape1 + ", ape2=" + ape2 + ", dni=" + dni
 				+ ", fechaini=" + fechaini + ", fechfincontrato=" + fechfincontrato + ", nombre=" + nombre
 				+ ", nomcontrato=" + nomcontrato + ", numss=" + numss + ", sueldo=" + sueldo + ", telf=" + telf
-				+ ", tipocontrato=" + tipocontrato + ", vehiculosTrabajadores=" + vehiculosTrabajadores + "]";
+				+ ", tipocontrato=" + tipocontrato + "]";
 	}
 
 }

@@ -125,8 +125,7 @@ public class Pack implements Serializable {
 	@Override
 	public String toString() {
 		return "Pack [codpack=" + codpack + ", codusuario=" + codusuario + ", descriptipo=" + descriptipo + ", nompack="
-				+ nompack + ", tipopack=" + tipopack + ", contratosPack=" + contratosPack + ", vehiculoPack="
-				+ vehiculoPack.getCodvehiculo() + "]";
+				+ nompack + ", tipopack=" + tipopack + "]";
 	}
 
 }

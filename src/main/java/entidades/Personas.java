@@ -146,7 +146,7 @@ public class Personas implements Serializable {
 	public String toString() {
 		return "Personas [codusuario=" + codusuario + ", ape1=" + ape1 + ", ape2=" + ape2 + ", destino=" + destino
 				+ ", dni=" + dni + ", inicio=" + inicio + ", metodopago=" + metodopago + ", nombre=" + nombre
-				+ ", telf=" + telf + ", contratosPersonas=" + contratosPersonas + "]";
+				+ ", telf=" + telf + "]";
 	}
 
 }
