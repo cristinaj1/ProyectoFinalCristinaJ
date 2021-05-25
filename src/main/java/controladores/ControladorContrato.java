@@ -11,11 +11,12 @@ import javax.persistence.Query;
 import entidades.Contrato;
 
 public class ControladorContrato {
-	private static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("proyectoFinalCristinaJ");
+	private static EntityManagerFactory entityManagerFactory = Persistence
+			.createEntityManagerFactory("proyectoFinalCristinaJ");
 	private EntityManager em;
 	private Query consulta;
 
-	//Borra elementos de la tabla contrato
+	// Borra elementos de la tabla contrato
 	public void borrarContrato(Contrato c) {
 		this.em = entityManagerFactory.createEntityManager();
 		Contrato aux = null;
@@ -28,7 +29,7 @@ public class ControladorContrato {
 		this.em.close();
 	}
 
-	//Modifica un contrato
+	// Modifica un contrato
 	public void modificarContrato(Contrato c) {
 		this.em = entityManagerFactory.createEntityManager();
 		this.em.getTransaction().begin();
@@ -38,7 +39,7 @@ public class ControladorContrato {
 
 	}
 
-	//Crea un contrato nuevo
+	// Crea un contrato nuevo
 	public void crearContrato(Contrato c) {
 		this.em = entityManagerFactory.createEntityManager();
 		this.em.getTransaction().begin();
@@ -47,11 +48,11 @@ public class ControladorContrato {
 		this.em.close();
 	}
 
-	//Busca por primary key en este caso codcontrato
+	// Busca por primary key en este caso codcontrato
 	public Contrato findByPK(int pk) {
 		this.em = entityManagerFactory.createEntityManager();
 		Contrato aux = null;
-		
+
 		this.consulta = em.createNativeQuery("select * from contrato where codcontrato = ?", Contrato.class);
 		this.consulta.setParameter(1, pk);
 
@@ -66,7 +67,23 @@ public class ControladorContrato {
 
 	}
 
-	//Aparecen todos los contratos de la empresa
+	//Busca según el código de usuario(la cual es una clave foránea)
+	public Contrato findByCodUsuario(String codUsuario) {
+		this.em = entityManagerFactory.createEntityManager();
+		Contrato aux = null;
+		this.consulta = em.createNativeQuery("Select * from contrato where codusuario = ?", Contrato.class);
+		this.consulta.setParameter(1, codUsuario);
+		try {
+			aux = (Contrato) consulta.getSingleResult();
+		} catch (NoResultException nre) {
+			aux = null;
+		}
+		this.em.close();
+		return aux;
+
+	}
+
+	// Aparecen todos los contratos de la empresa
 	public List<Contrato> findAll() {
 		this.em = entityManagerFactory.createEntityManager();
 		this.consulta = em.createNamedQuery("Contrato.findAll");

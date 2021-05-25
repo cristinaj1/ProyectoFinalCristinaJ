@@ -8,10 +8,12 @@ import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import entidades.Contrato;
 import entidades.Vehiculos;
 
 public class ControladorVehiculos {
-	private static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("proyectoFinalCristinaJ");
+	private static EntityManagerFactory entityManagerFactory = Persistence
+			.createEntityManagerFactory("proyectoFinalCristinaJ");
 	private EntityManager em;
 	private Query consulta;
 
@@ -60,6 +62,22 @@ public class ControladorVehiculos {
 			aux = null;
 		}
 
+		this.em.close();
+		return aux;
+
+	}
+
+	// Busca según la matricula que se le pase
+	public Vehiculos findByMatricula(String matricula) {
+		this.em = entityManagerFactory.createEntityManager();
+		Vehiculos aux = null;
+		this.consulta = em.createNativeQuery("Select * from vehiculos where matricula = ?", Vehiculos.class);
+		this.consulta.setParameter(1, matricula);
+		try {
+			aux = (Vehiculos) consulta.getSingleResult();
+		} catch (NoResultException nre) {
+			aux = null;
+		}
 		this.em.close();
 		return aux;
 

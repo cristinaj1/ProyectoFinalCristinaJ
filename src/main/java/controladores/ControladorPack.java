@@ -8,14 +8,16 @@ import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import entidades.Contrato;
 import entidades.Pack;
 
 public class ControladorPack {
-	private static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("proyectoFinalCristinaJ");
+	private static EntityManagerFactory entityManagerFactory = Persistence
+			.createEntityManagerFactory("proyectoFinalCristinaJ");
 	private EntityManager em;
 	private Query consulta;
 
-	//Borra elementos de la tabla pack
+	// Borra elementos de la tabla pack
 	public void borrarPack(Pack c) {
 		this.em = entityManagerFactory.createEntityManager();
 		Pack aux = null;
@@ -28,7 +30,7 @@ public class ControladorPack {
 		this.em.close();
 	}
 
-	//Modifica elementos de la tabla pack
+	// Modifica elementos de la tabla pack
 	public void modificarPack(Pack c) {
 		this.em = entityManagerFactory.createEntityManager();
 		this.em.getTransaction().begin();
@@ -38,7 +40,7 @@ public class ControladorPack {
 
 	}
 
-	//Crea un elemento en la tabla pack
+	// Crea un elemento en la tabla pack
 	public void crearPack(Pack c) {
 		this.em = entityManagerFactory.createEntityManager();
 		this.em.getTransaction().begin();
@@ -47,7 +49,7 @@ public class ControladorPack {
 		this.em.close();
 	}
 
-	//Busca por primary key en este caso codpack
+	// Busca por primary key en este caso codpack
 	public Pack findByPK(int pk) {
 		this.em = entityManagerFactory.createEntityManager();
 		Pack aux = null;
@@ -65,7 +67,23 @@ public class ControladorPack {
 
 	}
 
-	//Aparecen todos los packs de la empresa
+	//Busca según el tipo de pack que se le pasa
+	public Pack findByTipoPack(String tipo) {
+		this.em = entityManagerFactory.createEntityManager();
+		Pack aux = null;
+		this.consulta = em.createNativeQuery("Select * from pack where tipopack = ?", Pack.class);
+		this.consulta.setParameter(1, tipo);
+		try {
+			aux = (Pack) consulta.getSingleResult();
+		} catch (NoResultException nre) {
+			aux = null;
+		}
+		this.em.close();
+		return aux;
+
+	}
+
+	// Aparecen todos los packs de la empresa
 	public List<Pack> findAll() {
 		this.em = entityManagerFactory.createEntityManager();
 		this.consulta = em.createNamedQuery("Pack.findAll");

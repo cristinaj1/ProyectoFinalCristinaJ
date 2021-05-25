@@ -8,10 +8,12 @@ import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import entidades.Contrato;
 import entidades.Trabajadores;
 
 public class ControladorTrabajadores {
-	private static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("proyectoFinalCristinaJ");
+	private static EntityManagerFactory entityManagerFactory = Persistence
+			.createEntityManagerFactory("proyectoFinalCristinaJ");
 	private EntityManager em;
 	private Query consulta;
 
@@ -60,6 +62,22 @@ public class ControladorTrabajadores {
 			aux = null;
 		}
 
+		this.em.close();
+		return aux;
+
+	}
+
+	// BUsca según el telf que se le pasa
+	public Trabajadores findByTelf(String telf) {
+		this.em = entityManagerFactory.createEntityManager();
+		Trabajadores aux = null;
+		this.consulta = em.createNativeQuery("Select * from trabajadores where telf = ?", Trabajadores.class);
+		this.consulta.setParameter(1, telf);
+		try {
+			aux = (Trabajadores) consulta.getSingleResult();
+		} catch (NoResultException nre) {
+			aux = null;
+		}
 		this.em.close();
 		return aux;
 
