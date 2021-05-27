@@ -10,7 +10,7 @@ import java.util.List;
  * 
  */
 @Entity
-@Table(name="vehiculos")
+@Table(name = "vehiculos")
 @NamedQuery(name = "Vehiculos.findAll", query = "SELECT v FROM Vehiculos v")
 public class Vehiculos implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -35,7 +35,6 @@ public class Vehiculos implements Serializable {
 
 	private double tamanoancho;
 
-
 	/// Relación bidireccional uno a muchos a Contrato
 
 	// Un vehiculo puede aparecer en un distintos contratos
@@ -46,8 +45,6 @@ public class Vehiculos implements Serializable {
 
 	@OneToMany(mappedBy = "vehiculo")
 	private List<Contrato> contratosVehiculos;
-
-	
 
 	// Asociación bidireccional entre Vehiculos y Pack
 
@@ -181,9 +178,43 @@ public class Vehiculos implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Vehiculos [codvehiculo=" + codvehiculo + ", fechaitv=" + fechaitv + ", fichatecnica=" + fichatecnica
-				+ ", matricula=" + matricula + ", modelo=" + modelo + ", pesomax=" + pesomax + ", tamanoalto="
-				+ tamanoalto + ", tamanoancho=" + tamanoancho+ ", pack=" + pack + ", trabajadores=" + trabajadore + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("Vehiculos [codvehiculo=");
+		builder.append(codvehiculo);
+		builder.append(", fechaitv=");
+		builder.append(fechaitv);
+		builder.append(", fichatecnica=");
+		builder.append(fichatecnica);
+		builder.append(", matricula=");
+		builder.append(matricula);
+		builder.append(", modelo=");
+		builder.append(modelo);
+		builder.append(", pesomax=");
+		builder.append(pesomax);
+		builder.append(", tamanoalto=");
+		builder.append(tamanoalto);
+		builder.append(", tamanoancho=");
+		builder.append(tamanoancho);
+		builder.append(", contratosVehiculos=");
+		builder.append(contratos());
+		builder.append(", pack=");
+		builder.append(pack.getCodpack());
+		builder.append(", trabajadore=");
+		builder.append(trabajadore.getCodtrabajador());
+		builder.append("]");
+		return builder.toString();
 	}
 
+	//Para que aparezca la lista correctamente
+	private String contratos() {
+		String texto="";
+		if (!contratosVehiculos.isEmpty()) {
+			for (Contrato p : contratosVehiculos) {
+				texto += String.valueOf(p.getCodcontrato()) + ", ";
+
+			}
+			return texto;
+		}
+		return "";
+	}
 }

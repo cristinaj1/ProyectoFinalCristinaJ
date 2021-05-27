@@ -2,6 +2,8 @@ package entidades;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,7 +11,7 @@ import java.util.List;
  * 
  */
 @Entity
-@Table(name="pack")
+@Table(name = "pack")
 @NamedQuery(name = "Pack.findAll", query = "SELECT p FROM Pack p")
 public class Pack implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -34,9 +36,8 @@ public class Pack implements Serializable {
 
 	// mappedBy indica el atributo asociado en la clase Contrato
 
-	@OneToMany(mappedBy = "pack")
+	@OneToMany(mappedBy = "pack", fetch = FetchType.EAGER)
 	private List<Contrato> contratosPack;
-	
 
 	// Relación bidireccional uno a muchos a Vehiculos
 
@@ -124,8 +125,39 @@ public class Pack implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Pack [codpack=" + codpack + ", codusuario=" + codusuario + ", descriptipo=" + descriptipo + ", nompack="
-				+ nompack + ", tipopack=" + tipopack + "]";
+
+		String vehiculoPack = (this.vehiculoPack != null) ? this.vehiculoPack.getMatricula() : "";
+
+		StringBuilder builder = new StringBuilder();
+		builder.append("Pack [codpack=");
+		builder.append(codpack);
+		builder.append(", codusuario=");
+		builder.append(codusuario);
+		builder.append(", descriptipo=");
+		builder.append(descriptipo);
+		builder.append(", nompack=");
+		builder.append(nompack);
+		builder.append(", tipopack=");
+		builder.append(tipopack);
+		builder.append(", contratosPack=");
+		builder.append(contratos());
+		builder.append(" vehiculoPack=");
+		builder.append(vehiculoPack);
+		builder.append("]");
+		return builder.toString();
+	}
+
+	//para que aparezca la lista correctamente
+	private String contratos() {
+		String texto="";
+		if (!contratosPack.isEmpty()) {
+			for (Contrato p : contratosPack) {
+				texto += String.valueOf(p.getCodcontrato()) + ", ";
+
+			}
+			return texto;
+		}
+		return "";
 	}
 
 }

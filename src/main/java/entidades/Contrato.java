@@ -2,13 +2,14 @@ package entidades;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.swing.JOptionPane;
 
 /**
  * The persistent class for the contrato database table.
  * 
  */
 @Entity
-@Table(name="contrato")
+@Table(name = "contrato")
 @NamedQuery(name = "Contrato.findAll", query = "SELECT c FROM Contrato c")
 public class Contrato implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -99,8 +100,24 @@ public class Contrato implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Contrato [codcontrato=" + codcontrato + ", pack=" + pack + ", persona=" + persona + ", vehiculo="
-				+ vehiculo + "]";
+
+		StringBuilder builder = new StringBuilder();
+		try {
+			builder.append("Contrato [codcontrato=");
+			builder.append(codcontrato);
+			builder.append(", pack=");
+			builder.append(pack.getCodpack());
+			builder.append(", persona=");
+			builder.append(persona.getCodusuario());
+			builder.append(", vehiculo=");
+			builder.append(vehiculo.getCodvehiculo());
+			builder.append("]");
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Tiene un elemento a null");
+		}
+
+		return builder.toString();
+
 	}
 
 }

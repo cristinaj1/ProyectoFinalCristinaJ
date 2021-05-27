@@ -177,10 +177,48 @@ public class Trabajadores implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Trabajadores [codtrabajador=" + codtrabajador + ", ape1=" + ape1 + ", ape2=" + ape2 + ", dni=" + dni
-				+ ", fechaini=" + fechaini + ", fechfincontrato=" + fechfincontrato + ", nombre=" + nombre
-				+ ", nomcontrato=" + nomcontrato + ", numss=" + numss + ", sueldo=" + sueldo + ", telf=" + telf
-				+ ", tipocontrato=" + tipocontrato + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("Trabajadores [codtrabajador=");
+		builder.append(codtrabajador);
+		builder.append(", ape1=");
+		builder.append(ape1);
+		builder.append(", ape2=");
+		builder.append(ape2);
+		builder.append(", dni=");
+		builder.append(dni);
+		builder.append(", fechaini=");
+		builder.append(fechaini);
+		builder.append(", fechfincontrato=");
+		builder.append(fechfincontrato);
+		builder.append(", nombre=");
+		builder.append(nombre);
+		builder.append(", nomcontrato=");
+		builder.append(nomcontrato);
+		builder.append(", numss=");
+		builder.append(numss);
+		builder.append(", sueldo=");
+		builder.append(sueldo);
+		builder.append(", telf=");
+		builder.append(telf);
+		builder.append(", tipocontrato=");
+		builder.append(tipocontrato);
+		builder.append(", vehiculosTrabajadores=");
+		builder.append(vehiculo());
+		builder.append("]");
+		return builder.toString();
+	}
+
+	//Para mostrar la lista correctamente
+	private String vehiculo() {
+		String texto = "";
+		if (!vehiculosTrabajadores.isEmpty()) {
+			for (Vehiculos p : vehiculosTrabajadores) {
+				texto += String.valueOf(p.getCodvehiculo()) + ", ";
+
+			}
+			return texto;
+		}
+		return "";
 	}
 
 }

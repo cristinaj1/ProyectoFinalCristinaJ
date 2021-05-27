@@ -9,7 +9,7 @@ import java.util.List;
  * 
  */
 @Entity
-@Table(name="personas")
+@Table(name = "personas")
 @NamedQuery(name = "Personas.findAll", query = "SELECT p FROM Personas p")
 public class Personas implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -144,9 +144,42 @@ public class Personas implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Personas [codusuario=" + codusuario + ", ape1=" + ape1 + ", ape2=" + ape2 + ", destino=" + destino
-				+ ", dni=" + dni + ", inicio=" + inicio + ", metodopago=" + metodopago + ", nombre=" + nombre
-				+ ", telf=" + telf + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("Personas [codusuario=");
+		builder.append(codusuario);
+		builder.append(", ape1=");
+		builder.append(ape1);
+		builder.append(", ape2=");
+		builder.append(ape2);
+		builder.append(", destino=");
+		builder.append(destino);
+		builder.append(", dni=");
+		builder.append(dni);
+		builder.append(", inicio=");
+		builder.append(inicio);
+		builder.append(", metodopago=");
+		builder.append(metodopago);
+		builder.append(", nombre=");
+		builder.append(nombre);
+		builder.append(", telf=");
+		builder.append(telf);
+		builder.append(", contratosPersonas=");
+		builder.append(contratos());
+		builder.append("]");
+		return builder.toString();
+	}
+
+	//para que la lista aparezca por consola
+	private String contratos() {
+		String texto = "";
+		if (!contratosPersonas.isEmpty()) {
+			for (Contrato p : contratosPersonas) {
+				texto += String.valueOf(p.getCodcontrato()) + ", ";
+
+			}
+			return texto;
+		}
+		return "";
 	}
 
 }
